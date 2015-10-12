@@ -46,7 +46,7 @@ class Quest(models.Model):
     )
     quest_type = models.CharField(max_length=3, choices=TYPE_CHOICES)
 
-    password = models.TextField(blank=True,
+    password = models.CharField(max_length=512, blank=True,
         help_text='the password the player has to type if any,' + \
         ' left it blank for hacking quest')
 
