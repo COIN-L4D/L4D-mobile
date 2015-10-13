@@ -1,14 +1,68 @@
 from django.http import HttpResponse
 from django.views.generic import View, TemplateView
+from django.shortcuts import render
 
-from .forms import ContextForm
-from .models import Context
+from .forms import ContextForm, PasswordForm
+from .models import Context, Quest
 
 class PlayerView(View):
     """ the view of the players """
+    template_name_password = 'main/password.html'
+    template_name_no_quest = 'main/noquest.html'
+    template_name_secret = 'main/secret.html'
 
-    def get(self, request, *args, **kwargs):
-        return HttpResponse("PlayerView")
+    def dispatch(self, request, *args, **kwargs):
+        self.game_context = Context.get_instance()
+        self.quest = self.game_context.quest
+        if self.quest is None:
+            return render(request, self.template_name_no_quest)
+        elif self.game_context.state == Context.PASSWORD:
+            if request.method == 'POST':
+                return self.process_password(request, *args, **kwargs)
+            else:
+                return self.ask_password(request, *args, **kwargs)
+        elif self.game_context.state == Context.HACKING:
+            return self.give_hacking_page(request, *args, **kwargs)
+        elif self.game_context.state == Context.SUCCESS:
+            return self.show_secret_reward(request, *args, **kwargs)
+        else:
+            return HttpResponse("Error: invalid context state")
+
+    def process_password(self, request, *args, **kwargs):
+        form = PasswordForm(request.POST)
+
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            if self.quest.quest_type == Quest.HACK:
+                if password == self.hack_pass:
+                    self.game_context.state = Context.HACKING
+                    self.game_context.save()
+                    return self.give_hacking_page(request, *args, **kwargs)
+
+            elif self.quest.password == password:
+                self.game_context.state = Context.SUCCESS
+                self.game_context.save()
+                return self.show_secret_reward(request, *args, **kwargs)
+
+        return self.ask_password(request, *args, **kwargs)
+
+    def ask_password(self, request, *args, **kwargs):
+        form = PasswordForm()
+        context = {
+            'form': form,
+            'enigma': self.quest.enigma if self.quest.quest_type == Quest.ENIGMA
+                else None
+        }
+        return render(request, self.template_name_password, context)
+
+    def give_hacking_page(self, request, *args, **kwargs):
+        pass
+
+    def show_secret_reward(self, request, *args, **kwargs):
+        context = {
+            'secret': self.quest.secret,
+        }
+        return render(request, self.template_name_secret, context)
 
 
 class ManagerView(TemplateView):

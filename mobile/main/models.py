@@ -57,6 +57,9 @@ class Quest(models.Model):
     mini_game = models.ForeignKey('MiniGame', null=True, blank=True,
         help_text="the mini-game, don't set it for no hacking quest")
 
+    secret = models.TextField(verbose_name='secret informations',
+        help_text='the text diplayed to players when they complete the quest') 
+
     def __unicode__(self):
         return self.name
 
