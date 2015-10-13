@@ -4,30 +4,31 @@ class Context(models.Model):
     """ the current context of the game """
 
     """ the current quest or null """
-    quest = models.ForeignKey('Quest', null=True)
+    quest = models.ForeignKey('Quest', null=True, default=None, blank=True)
 
     PASSWORD = 'PWD'
     SUCCESS = 'SUC'
     HACKING = 'HAK'
     STATE_CHOICES = (
-        (PASSWORD, 'Password'),
-        (SUCCESS, 'Success'),
-        (HACKING, 'Hacking'),
+        (PASSWORD, 'Asking password'),
+        (HACKING, 'Hacking (mini-game)'),
+        (SUCCESS, 'Success (finished)'),
     )
 
     """ the current state or null """
-    state = models.CharField(max_length=3, choices=STATE_CHOICES, null=True)
+    state = models.CharField(max_length=3, choices=STATE_CHOICES,
+        default=PASSWORD, null=True, blank=True)
 
-    def __str__(self):
+    def __unicode__(self):
         if self.quest is None:
             return "No quest started"
         else:
             return "Current quest: " + self.quest.name
 
     @staticmethod
-    def get_context():
+    def get_instance():
         """ return the context (it should be a singleton) """
-        context, created = Context.get_or_create(defaults={
+        context, created = Context.objects.get_or_create(defaults={
             'quest': None, 'state': None
         })
         return context;
@@ -53,15 +54,15 @@ class Quest(models.Model):
     enigma = models.TextField(blank=True,
         help_text='the enigma to display to user, left it blank for no enigma quest')
 
-    mini_game = models.ForeignKey('MiniGame', null=True,
+    mini_game = models.ForeignKey('MiniGame', null=True, blank=True,
         help_text="the mini-game, don't set it for no hacking quest")
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 class MiniGame(models.Model):
 
     name = models.TextField()
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>L4D Mobile - Manager</title>
+</head>
+<body>
+
+  <h2>L4D Mobile Admin</h2>
+  <div>
+    <p>Tu peux changer la quête en cours sur ce PC:</p>
+    <form action="/manage" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <p><a href='/'>Clique ici pour retourner sur la page du jeu</a></p>
+
+</body>
+</html>
