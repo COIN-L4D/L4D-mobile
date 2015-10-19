@@ -10,6 +10,9 @@ class PlayerView(View):
     template_name_password = 'main/password.html'
     template_name_no_quest = 'main/noquest.html'
     template_name_secret = 'main/secret.html'
+    template_name_hacking = 'main/hacking.html'
+
+    hack_pass = 'hack'
 
     def dispatch(self, request, *args, **kwargs):
         self.game_context = Context.get_instance()
@@ -22,9 +25,13 @@ class PlayerView(View):
             else:
                 return self.ask_password(request, *args, **kwargs)
         elif self.game_context.state == Context.HACKING:
-            return self.give_hacking_page(request, *args, **kwargs)
+            if request.method == 'POST':
+                return self.process_hacking_success(request, *args, **kwargs)
+            else:
+                return self.give_hacking_page(request, *args, **kwargs)
         elif self.game_context.state == Context.SUCCESS:
             return self.show_secret_reward(request, *args, **kwargs)
+            ward(request, *args, **kwargs)
         else:
             return HttpResponse("Error: invalid context state")
 
@@ -56,7 +63,18 @@ class PlayerView(View):
         return render(request, self.template_name_password, context)
 
     def give_hacking_page(self, request, *args, **kwargs):
-        pass
+        context = {
+            'mini_game': self.quest.mini_game,
+        }
+        return render(request, self.template_name_hacking, context)
+
+    def process_hacking_success(self, request, *args, **kwargs):
+        if request.POST.has_key('result') and request.POST['result'] == 'success':
+            self.game_context.state = Context.SUCCESS
+            self.game_context.save()
+            return self.show_secret_reward(request, *args, **kwargs)
+        else:
+            return self.give_hacking_page(request, *args, **kwargs)
 
     def show_secret_reward(self, request, *args, **kwargs):
         context = {
