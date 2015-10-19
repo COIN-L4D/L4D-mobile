@@ -58,14 +58,17 @@ class Quest(models.Model):
         help_text="the mini-game, don't set it for no hacking quest")
 
     secret = models.TextField(verbose_name='secret informations',
-        help_text='the text diplayed to players when they complete the quest') 
+        help_text='the text diplayed to players when they complete the quest')
 
     def __unicode__(self):
         return self.name
 
 class MiniGame(models.Model):
 
-    name = models.TextField()
+    name = models.CharField(max_length=120)
+
+    help_text = models.TextField(help_text='A text that helps the player'\
+        + 'to understand the rules', blank=True)
 
     def __unicode__(self):
         return self.name
