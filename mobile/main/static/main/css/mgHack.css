@@ -1,0 +1,118 @@
+
+/*input[type=text], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+*/
+
+.mg-hack-wrapper {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  background-image:url("../img/mg-hack-bg.png");
+  color: black;
+  border-spacing: 0;
+  border: solid;
+}
+
+.mg-hack-input-block{
+  margin: 0 auto;
+}
+
+.mg-hack-input-block {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.mg-hack-alphabet {
+  color:white;
+  background-color:black;
+  font-style: italic;
+  text-align: right;
+  overflow: auto;
+  margin-left:130px;
+}
+
+.mg-hack-submit {
+}
+
+.mg-hack-input {
+  width: 25%;
+  text-align: center;
+
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+.mg-hack-input:focus.mg-hack-valid {
+  box-shadow: 0 0 5px green;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid green;
+}
+
+.mg-hack-input:focus.mg-hack-error {
+  box-shadow: 0 0 5px red;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid red;
+}
+
+.mg-hack-table-block {
+  background-color: darkgrey;
+  overflow: auto;
+  height: calc(100% - 100px);
+  border: 2px solid;
+  border-radius: 5px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.mg-hack-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mg-hack-table td {
+	width: 50px;
+	text-align: center;
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.mg-hack-table tr:nth-child(1) th,
+.mg-hack-table td:nth-child(1)
+{
+  width: 50px;
+  text-transform: bold;
+  border: 1px solid white;
+  border-collapse: collapse;
+  background-color: black;
+	color: darkgrey;
+}
+
+.mg-hack-cell-good {
+  background-color: green;
+}
+
+.mg-hack-cell-wrong {
+  background-color: red;
+}
+
+.mg-hack-cell-elsewhere {
+  background-color: orange;
+}
