@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="./fire.css" />
+
+    <script src='./fire.js'></script>
+
+    <title>Fire mini game</title>
+
+</head>
+<body>
+
+    <div id='game-container'
+        style='width:800px; height:600px; border: 0px solid; margin: 0 auto;'>
+    </div>
+
+    <script type="text/javascript">
+
+        var node = document.getElementById('game-container'),
+            callback = function() {
+                alert('you win !')
+            }
+        fire.start({
+            node: node,
+            callback: callback,
+            canvasWidth: node.clientWidth,
+            canvasHeight: node.clientHeight,
+            mapWidth: Math.floor(node.clientWidth / 50),
+            mapHeight: Math.floor(node.clientHeight / 50),
+            imageFolder: './images',
+        })
+    </script>
+</body>
+</html>

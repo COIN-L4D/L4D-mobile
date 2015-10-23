@@ -9,25 +9,28 @@
   }
 </script>
 
-
 <link rel="stylesheet" href="{% static 'main/css/hacking.css' %}" charset="utf-8">
+
+{% if mini_game.name == 'Hack' %}
 <link rel="stylesheet" href="{% static 'main/css/mgHack.css' %}" charset="utf-8">
+<script src="{% static 'main/js/mgHack.js' %}" charset="utf-8"></script>
+{% elif mini_game.name == 'Fire' %}
+<link rel="stylesheet" href="{% static 'main/css/fire.css' %}" charset="utf-8">
+<script src="{% static 'main/js/fire.js' %}" charset="utf-8"></script>
+{% endif %}
+
 {% endblock %}
 {% block content %}
 <div id='mini-game-block'></div>
 
-
-<form id="end-form" action="/" method="post" sytle="display: none">
+<form id="end-form" action="/" method="post" style="display: none">
   {% csrf_token %}
   <input id="result-input" type="text" name="result" value=""/>
   <input type="submit"/>
 </form>
 
-
 {% endblock %}
 
 {% block foot_assets %}
-<script src="{% static 'main/js/mgHack.js' %}" charset="utf-8"></script>
-
 <script src="{% static 'main/js/hacking.js' %}" charset="utf-8"></script>
 {% endblock %}
