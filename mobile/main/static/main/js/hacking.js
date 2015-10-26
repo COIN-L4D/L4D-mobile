@@ -72,6 +72,10 @@
         startFiresNumber: 10
       })
     }
+    else if (self.current_game.name == 'Alien'){
+      loadGame(alien)
+      makeStartEasier({})
+    }
 
     startGame()
   }

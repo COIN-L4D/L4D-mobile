@@ -10,6 +10,8 @@
 </script>
 
 <link rel="stylesheet" href="{% static 'main/css/hacking.css' %}" charset="utf-8">
+<script src="{% static 'main/vendors/jquery-1.11.3.min.js' %}" charset="utf-8"></script>
+
 
 {% if mini_game.name == 'Hack' %}
 <link rel="stylesheet" href="{% static 'main/css/mgHack.css' %}" charset="utf-8">
@@ -17,6 +19,10 @@
 {% elif mini_game.name == 'Fire' %}
 <link rel="stylesheet" href="{% static 'main/css/fire.css' %}" charset="utf-8">
 <script src="{% static 'main/js/fire.js' %}" charset="utf-8"></script>
+{% elif mini_game.name == 'Alien' %}
+<link rel="stylesheet" href="{% static 'main/css/alien.css' %}" charset="utf-8">
+<link rel="stylesheet" href="{% static 'main/css/alien_moves.css' %}" charset="utf-8">
+<script src="{% static 'main/js/alien.js' %}" charset="utf-8"></script>
 {% endif %}
 
 {% endblock %}
