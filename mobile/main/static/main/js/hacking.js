@@ -46,8 +46,8 @@
       // load and congifgure mgHack
       loadGame(mgHack)
       makeStartEasier({
-        alphabet: '0123456789',
-        size: 4,
+        alphabet: '0123456789xyz',
+        size: 5,
       })
     }
     else if (self.current_game.name == 'Fire'){
@@ -64,12 +64,12 @@
         canvasHeight: h,
         mapWidth: 20,
         mapHeight: 15,
-        scoreToWin: 10,
-        maxFiresNumber: 10,
+        scoreToWin: 5,
+        maxFiresNumber: 5,
         maxWatersNumber: 3,
-        fireSpawnProba: 0.01,
+        fireSpawnProba: 0.00,
         waterSpawnProba: 0.05,
-        startFiresNumber: 10
+        startFiresNumber: 5
       })
     }
     else if (self.current_game.name == 'Alien'){
